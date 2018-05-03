@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="item_line_bg">#333333</color>
+
+    <color name="keyguard_text_color_unlock">#a7d84c</color>
+    <color name="title_color">#e69310</color>
+    <color name="cancle_color">#fe0a5a</color>
+</resources>

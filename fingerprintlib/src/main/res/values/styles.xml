@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="showPopupAnimation" parent="android:Animation">  <!--name为调用这个style动画的名字，自己设置的-->
+        <item name="android:windowExitAnimation">@anim/pophidden_img</item><!-- 退出动画-->
+        <item name="android:windowEnterAnimation">@anim/popshow_img</item><!--- 进入动画-->
+    </style>
+</resources>

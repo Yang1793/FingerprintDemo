@@ -1,0 +1,120 @@
+package sunyard.jryang.fingerprintlib.fingerprint;
+
+import android.content.Context;
+
+import com.samsung.android.sdk.pass.Spass;
+import com.samsung.android.sdk.pass.SpassFingerprint;
+import com.samsung.android.sdk.pass.SpassInvalidStateException;
+
+import sunyard.jryang.fingerprintlib.base.BaseFingerprint;
+import sunyard.jryang.fingerprintlib.impl.FingerprintIdentifyExceptionListener;
+
+/**
+ * Author:JR
+ * E-mail:jianr.yang@sunyard.com
+ * Time: 2018/5/2
+ * Description:三星手机的指纹解锁 棒子开发者平台:<code>https://developer.samsung.com/galaxy/pass#</code>
+ */
+public class SamsungFingerprint extends BaseFingerprint {
+
+    private int mResultCode = -1;
+    private SpassFingerprint mSpassFingerprint;
+
+    public SamsungFingerprint(Context mCtx, FingerprintIdentifyExceptionListener mIdentifyExceptionListener) {
+        super(mCtx, mIdentifyExceptionListener);
+
+        try {
+            Spass spass = new Spass();
+            spass.initialize(mCtx);
+            mSpassFingerprint = new SpassFingerprint(mCtx);
+            setmIsHardwareDetected(spass.isFeatureEnabled(Spass.DEVICE_FINGERPRINT));
+            setmIsRegisteredFingerprint(mSpassFingerprint.hasRegisteredFinger());
+        } catch (Throwable e) {
+            onCatchException(e);
+        }
+    }
+
+    @Override
+    protected void doIdentify() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mSpassFingerprint.startIdentify(new SpassFingerprint.IdentifyListener() {
+                        @Override
+                        public void onFinished(int i) {
+                            mResultCode = i;
+                        }
+
+                        @Override
+                        public void onReady() {
+
+                        }
+
+                        @Override
+                        public void onStarted() {
+
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            switch (mResultCode) {
+                                case SpassFingerprint.STATUS_AUTHENTIFICATION_SUCCESS:
+                                case SpassFingerprint.STATUS_AUTHENTIFICATION_PASSWORD_SUCCESS:
+                                    onSuccess();
+                                    break;
+
+                                case SpassFingerprint.STATUS_SENSOR_FAILED:
+                                case SpassFingerprint.STATUS_OPERATION_DENIED:
+                                case SpassFingerprint.STATUS_TIMEOUT_FAILED:
+                                case SpassFingerprint.STATUS_BUTTON_PRESSED:
+                                case SpassFingerprint.STATUS_QUALITY_FAILED:
+                                case SpassFingerprint.STATUS_USER_CANCELLED_BY_TOUCH_OUTSIDE:
+                                case SpassFingerprint.STATUS_AUTHENTIFICATION_FAILED:
+                                    onNotMatch();
+                                    break;
+
+                                case SpassFingerprint.STATUS_USER_CANCELLED:
+                                    // do nothing
+                                    break;
+
+                                default:
+                                    onFailed(false);
+                                    break;
+                            }
+                        }
+                    });
+                } catch (Throwable e) {
+                    if (e instanceof SpassInvalidStateException) {
+                        SpassInvalidStateException stateException = (SpassInvalidStateException) e;
+                        if (stateException.getType() == 1) {
+                            onFailed(true);
+                        } else {
+                            onCatchException(e);
+                            onFailed(false);
+                        }
+                    } else {
+                        onCatchException(e);
+                        onFailed(false);
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void doCancelIdentify() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if (mSpassFingerprint != null) {
+                        mSpassFingerprint.cancelIdentify();
+                    }
+                } catch (Throwable e) {
+//                    onCatchException(e);
+                }
+            }
+        });
+    }
+}

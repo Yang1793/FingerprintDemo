@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@drawable/item_shape"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/item_title_"
+        android:textColor="@color/title_color"
+        android:padding="@dimen/item_title_padding"
+        android:text="@string/item_title"/>
+
+    <ImageView
+        android:id="@+id/item_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/item_cancle_padding"
+        android:src="@drawable/ic_fingerprint_black_24dp"/>
+
+    <TextView
+        android:id="@+id/item_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/item_prompt_"
+        android:textColor="@color/title_color"
+        android:padding="@dimen/item_prompt_padding"
+        android:layout_marginLeft="@dimen/item_prompt_margin"
+        android:layout_marginRight="@dimen/item_prompt_margin"
+        android:text="@string/item_prompt"/>
+
+    <!--暂时没有用，但是ui可能要加字，先留着-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dip"
+        android:padding="@dimen/item_prompt_padding"
+        android:layout_marginLeft="@dimen/item_prompt_margin"
+        android:layout_marginRight="@dimen/item_prompt_margin"
+        android:visibility="invisible"
+        android:text="@string/item_prompt"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/item_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@null"
+        android:textSize="@dimen/item_cancle_"
+        android:textColor="@color/cancle_color"
+        android:padding="@dimen/item_cancle_padding"
+        android:text="@string/item_cancle"/>
+
+</LinearLayout>

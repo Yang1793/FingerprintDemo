@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">fingerprintLib</string>
+    <string name="item_title">指纹登录</string>
+    <string name="item_prompt">请将手指放于指纹传感器上</string>
+    <string name="item_prompt_success">指纹识别成功</string>
+    <string name="item_prompt_failed">指纹不能识别</string>
+    <string name="item_cancle">取消</string>
+</resources>

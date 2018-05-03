@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_title_">16sp</dimen>
+    <dimen name="item_prompt_">12sp</dimen>
+    <dimen name="item_cancle_">16sp</dimen>
+
+    <dimen name="item_title_padding">8dip</dimen>
+    <dimen name="item_prompt_padding">4dip</dimen>
+    <dimen name="item_cancle_padding">6dip</dimen>
+    <dimen name="item_prompt_margin">20dip</dimen>
+</resources>
